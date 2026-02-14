@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.10.5' # هذا الإصدار هو الأنسب لكودك الحالي
+          flutter-version: '2.10.5' # هذا الإصدار هو الأكثر استقراراً لكود RedotPay
           channel: 'stable'
       - run: flutter pub get
       - run: flutter build apk --debug --no-sound-null-safety
