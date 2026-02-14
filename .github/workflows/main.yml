@@ -15,4 +15,3 @@ jobs:
         with:
           name: my-app-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
-          
