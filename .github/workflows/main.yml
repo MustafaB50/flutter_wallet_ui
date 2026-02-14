@@ -8,7 +8,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # حذفنا رقم الإصدار هنا لنترك للنظام اختيار الأنسب تلقائياً
       - run: flutter pub get
       - run: flutter build apk --debug --no-sound-null-safety
       - name: Upload APK
