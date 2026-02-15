@@ -1,26 +1,12 @@
-name: Build APK
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.0' # النسخة المنقذة للمشاريع القديمة
+name: flutter_wallet_ui_challenge
+description: A new Flutter project for RedotPay Clone.
 
-      - name: Clean Project
-        run: |
-          flutter clean
-          flutter pub get
+version: 1.0.0+1
 
-      - name: Build APK
-        run: flutter build apk --debug --ignore-deprecation --no-sound-null-safety
+environment:
+  sdk: ">=3.0.0 <4.0.0" # هذا السطر هو الذي سيحل مشكلة الفشل في الصورة 1000049021
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: FuelApp-Working
-          path: build/app/outputs/flutter-apk/app-debug.apk
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6 # تحديث الأيقونات لضمان التوافق مع Dart 3 
