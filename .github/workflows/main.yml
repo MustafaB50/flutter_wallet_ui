@@ -7,12 +7,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0' # النسخة الذهبية للمشاريع القديمة
+          flutter-version: '3.10.0' # تم تغيير النسخة لضمان التوافق
       - run: flutter pub get
-      - run: flutter clean # مسح الأخطاء السابقة
-      - run: flutter build apk --debug --ignore-deprecation
+      - run: flutter clean # تنظيف الملفات المسببة للتعارض
+      - run: flutter build apk --debug --ignore-deprecation # تجاهل تحذيرات النسخ القديمة
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: FuelApp
-          path: build/app/outputs/flutter-apk/app-debug.apkد
+          path: build/app/outputs/flutter-apk/app-debug.apk
