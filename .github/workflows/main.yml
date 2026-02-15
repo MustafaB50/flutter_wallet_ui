@@ -9,18 +9,18 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0'
+          flutter-version: '3.16.0' # نسخة أحدث لضمان دعم V2 Embedding
           
       - name: Recreate Android Files
-        run: flutter create . --platforms android
+        run: flutter create . --platforms android --overwrite
         
       - name: Build APK
-        run: flutter build apk --debug --ignore-deprecation --no-pub
+        run: flutter build apk --debug --ignore-deprecation
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RedotPay-Clone
+          name: RedotPay-Clone-Final
           path: build/app/outputs/flutter-apk/app-debug.apk
 
 
