@@ -15,15 +15,16 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          # هذا الإصدار هو الأحدث الذي لا يزال يدعم Dart 2 ويحل مشكلة السطر 40
           flutter-version: '2.10.5' 
           channel: 'stable'
 
       - run: flutter pub get
-      - run: flutter build apk --debug --no-sound-null-safety
-
+      
+      # الأمر السحري الجديد لتخطي مشكلة الـ v1 embedding المذكورة في الصورة
+      - run: flutter build apk --debug --no-sound-null-safety --ignore-deprecation
+      
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: my-app-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          path: build/app/outputs/flutter-apk/app-debug.aak         
