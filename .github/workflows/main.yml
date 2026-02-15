@@ -24,7 +24,3 @@ jobs:
         with:
           name: FuelApp-Working
           path: build/app/outputs/flutter-apk/app-debug.apk
-                - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.0' # التعديل المطلوب هنا
