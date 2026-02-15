@@ -5,33 +5,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
-
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '2.10.5'
           channel: 'stable'
-
-      - name: Advanced Fixes
-        run: |
-          # إصلاح شامل لمسميات النصوص التي سببت الفشل في السطر 248
-          grep -rli 'headline' * | xargs -i@ sed -i 's/headline/headlineMedium/g' @
-          grep -rli 'body1' * | xargs -i@ sed -i 's/body1/bodyLarge/g' @
-          grep -rli 'accentColor' * | xargs -i@ sed -i 's/accentColor/colorScheme.secondary/g' @
-          
-          # مسح وإعادة بناء ملفات أندرويد لتجنب خطأ v1 embedding
-          rm -rf android/
-          flutter create . --platforms android --no-overwrite
-
       - run: flutter pub get
       - run: flutter build apk --debug --no-sound-null-safety
-
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
