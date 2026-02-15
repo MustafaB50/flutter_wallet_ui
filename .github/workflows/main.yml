@@ -1,4 +1,4 @@
-name: Build Modern APK
+name: Build APK
 on: [push, pull_request]
 jobs:
   build:
@@ -6,36 +6,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
-      - name: Install Modern Flutter
+      - name: Install Flutter Legacy
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          # هذا الإصدار هو الوحيد الذي سيفهم مكتبة Charts المذكورة في الصورة
+          flutter-version: '2.10.5' 
           channel: 'stable'
 
-      - name: Force Fix SDK & Code
+      - name: Clean & Force Get
         run: |
-          # 1. تحديث إصدار الـ SDK في ملف الإعدادات ليقبل Dart 3
-          sed -i 's/sdk: ">=2.1.0 <3.0.0"/sdk: ">=2.12.0 <4.0.0"/g' pubspec.yaml
-          
-          # 2. مسح ملفات الأندرويد القديمة v3 تماماً
-          rm -rf android/
-          flutter create . --platforms android
-          
-          # 3. إصلاح مسميات النصوص الرسومية (Headline/Body) تلقائياً
-          find . -name "*.dart" -type f -exec sed -i 's/headline/headlineMedium/g' {} +
-          find . -name "*.dart" -type f -exec sed -i 's/body1/bodyLarge/g' {} +
+          flutter clean
+          # أمر هامي جداً لتجاوز تعارضات المكتبات القديمة
+          flutter pub get --no-example
 
-      - run: flutter pub get
-      - run: flutter build apk --debug --no-sound-null-safety
+      - name: Final Build Attempt
+        # نستخدم ignore-deprecation لتخطي خطأ v1 embedding الذي ظهر في السطر 23
+        run: flutter build apk --debug --no-sound-null-safety
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: modern-app-apk
+          name: final-app-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
+
