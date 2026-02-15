@@ -14,13 +14,12 @@ jobs:
           
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.5.3'
+          flutter-version: '2.2.3' # إصدار أقدم ليتوافق مع headline و body1
           channel: 'stable'
           
       - run: flutter pub get
       - run: flutter clean
-      # الأمر الجديد لإجبار النظام على البناء رغم الأخطاء
-      - run: flutter build apk --debug --no-sound-null-safety --no-shrink
+      - run: flutter build apk --debug --no-sound-null-safety
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
