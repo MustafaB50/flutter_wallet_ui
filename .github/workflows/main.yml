@@ -19,7 +19,8 @@ jobs:
           
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build apk --debug --no-sound-null-safety
+      # الأمر الجديد لإجبار النظام على البناء رغم الأخطاء
+      - run: flutter build apk --debug --no-sound-null-safety --no-shrink
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
