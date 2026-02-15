@@ -5,23 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0' # النسخة المستقرة التي اتفقنا عليها
-          
-      - name: Install dependencies
+          flutter-version: '3.10.0' # استخدام النسخة الأكثر استقراراً لمشروعك
+
+      - name: Get dependencies
         run: flutter pub get
-        
-      - name: Clean Project
-        run: flutter clean # هذا الأمر "يُحدث" الحالة بمسح مخلفات النسخ القديمة
-        
+
+      - name: Clean build files
+        run: flutter clean # مسح الملفات القديمة التي سببت أخطاء Groovy
+
       - name: Build APK
-        run: flutter build apk --debug --ignore-deprecation # تجاهل أخطاء النسخ القديمة
-        
+        run: flutter build apk --debug --ignore-deprecation # تجاوز تحذيرات النسخة القديمة
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: FuelManagementApp
+          name: Fuel-Station-App
           path: build/app/outputs/flutter-apk/app-debug.apk
