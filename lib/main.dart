@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(RedotPayClone());
+  runApp(const RedotPayClone());
 }
 
 class RedotPayClone extends StatelessWidget {
+  const RedotPayClone({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color(0xFF0A0A0A), // الخلفية السوداء العميقة لـ RedotPay
-      ),
-      home: HomePage(),
+      theme: ThemeData.dark(),
+      home: const WalletHomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class WalletHomePage extends StatelessWidget {
+  const WalletHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Icon(Icons.person_outline, color: Colors.white),
+        backgroundColor: Colors.black,
+        title: const Text("RedotPay", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         actions: [
-          Icon(Icons.notifications_none, color: Colors.white),
-          SizedBox(width: 15),
+          IconButton(icon: const Icon(Icons.notifications_none), onPressed: () {}),
         ],
       ),
       body: Padding(
@@ -35,84 +36,64 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Total Balance", style: TextStyle(color: Colors.grey, fontSize: 16)),
-            SizedBox(height: 10),
-            Text("\$1,250.00", style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
-            SizedBox(height: 30),
-            
-            // تصميم بطاقة RedotPay المميزة
+            // البطاقة السوداء (Card)
             Container(
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF232323), Color(0xFF000000)],
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1a1a1a), Color(0xFF333333)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.orange.withOpacity(0.3)),
-                boxShadow: [
-                  BoxShadow(color: Colors.orange.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)
-                ],
+                border: Border.all(color: Colors.grey.withOpacity(0.3)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+              child: const Padding(
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Text("VISA", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("RedotPay", style: TextStyle(color: Colors.orange, fontSize: 20, fontWeight: FontWeight.bold)),
-                        Icon(Icons.contactless, color: Colors.white),
+                        Text("Balance", style: TextStyle(color: Colors.grey, fontSize: 14)),
+                        Text("\$12,500.00", style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    Text("**** **** **** 1234", style: TextStyle(color: Colors.white, fontSize: 22, letterSpacing: 2)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("MUSTAFA BSO", style: TextStyle(color: Colors.grey)),
-                        Text("12/28", style: TextStyle(color: Colors.grey)),
-                        Text("VISA", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
-                      ],
-                    ),
+                    Text("**** **** **** 8888", style: TextStyle(color: Colors.white, letterSpacing: 2)),
                   ],
                 ),
               ),
             ),
-            
-            SizedBox(height: 30),
-            Text("Recent Activity", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-            // القائمة السفلية للعمليات
-            Expanded(
-              child: ListView(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: Colors.grey[900], child: Icon(Icons.shopping_bag, color: Colors.white)),
-                    title: Text("Amazon Purchase"),
-                    subtitle: Text("12 Feb 2026"),
-                    trailing: Text("-\$45.00", style: TextStyle(color: Colors.red)),
-                  ),
-                ],
-              ),
+            const SizedBox(height: 30),
+            // أزرار العمليات
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildActionButton(Icons.add, "Deposit"),
+                _buildActionButton(Icons.send, "Send"),
+                _buildActionButton(Icons.wallet, "Withdraw"),
+              ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF121212),
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Cards'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Assets'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
-        ],
-      ),
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label) {
+    return Column(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.grey[900],
+          child: Icon(icon, color: Colors.white),
+        ),
+        const SizedBox(height: 8),
+        Text(label, style: const TextStyle(color: Colors.white)),
+      ],
     );
   }
 }
