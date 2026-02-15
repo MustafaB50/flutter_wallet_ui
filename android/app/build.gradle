@@ -1,5 +1,4 @@
 android {
-    namespace "com.example.flutter_wallet_ui" // تأكد أن هذا الاسم يطابق مشروعك
     compileSdkVersion 34
 
     defaultConfig {
