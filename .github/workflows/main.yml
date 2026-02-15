@@ -5,21 +5,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up JDK 8 # نستخدم نسخة جافا أقدم لتناسب الإصدار
-        uses: actions/setup-java@v3
+
+      - name: Set up JDK 17 # أحدث نسخة جافا مستقرة ومعتمدة
+        uses: actions/setup-java@v4
         with:
-          java-version: '8'
+          java-version: '17'
           distribution: 'temurin'
-          
-      - uses: subosito/flutter-action@v2
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '1.22.6' # هذا الإصدار سيحل مشكلة الأخطاء المتكررة فوراً
+          flutter-version: '3.19.0' # إصدار حديث جداً ومستقر لعام 2024/2025
           channel: 'stable'
-          
+
       - run: flutter pub get
-      - run: flutter build apk --debug
       
+      # هذا الأمر سيقوم بتحديث ملفات المشروع القديمة لتتوافق مع الإصدار الحديث تلقائياً
+      - run: flutter create . 
+      
+      - run: flutter build apk --debug --no-sound-null-safety
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
