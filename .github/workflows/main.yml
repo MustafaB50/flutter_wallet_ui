@@ -5,14 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0' # تم تغيير النسخة لضمان التوافق
-      - run: flutter pub get
-      - run: flutter clean # تنظيف الملفات المسببة للتعارض
-      - run: flutter build apk --debug --ignore-deprecation # تجاهل تحذيرات النسخ القديمة
+          flutter-version: '3.10.0' # النسخة المستقرة التي اتفقنا عليها
+          
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Clean Project
+        run: flutter clean # هذا الأمر "يُحدث" الحالة بمسح مخلفات النسخ القديمة
+        
+      - name: Build APK
+        run: flutter build apk --debug --ignore-deprecation # تجاهل أخطاء النسخ القديمة
+        
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: FuelApp
+          name: FuelManagementApp
           path: build/app/outputs/flutter-apk/app-debug.apk
