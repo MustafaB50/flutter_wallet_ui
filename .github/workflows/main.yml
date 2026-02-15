@@ -9,7 +9,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.12' # النسخة المنقذة للمشاريع القديمة
+          flutter-version: '3.13.0' # النسخة المنقذة للمشاريع القديمة
 
       - name: Clean Project
         run: |
@@ -24,3 +24,7 @@ jobs:
         with:
           name: FuelApp-Working
           path: build/app/outputs/flutter-apk/app-debug.apk
+                - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.0' # التعديل المطلوب هنا
