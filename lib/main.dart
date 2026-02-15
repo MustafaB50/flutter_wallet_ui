@@ -1,167 +1,118 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: RedotPayPage(),
-    ));
-
-class RedotPayPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Container(
-          height: 220,
-          width: double.infinity,
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFF1a1a1a), Color(0xFF000000)],
-            ),
-            border: Border.all(color: Colors.white10),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 25,
-                left: 20,
-                child: Text("RedotPay", 
-                  style: TextStyle(color: Color(0xFFFF3B30), fontWeight: FontWeight.bold, fontSize: 20)),
-              ),
-              Positioned(
-                bottom: 60,
-                left: 20,
-                child: Text("**** **** **** 8890", 
-                  style: TextStyle(color: Colors.white, fontSize: 24, letterSpacing: 2)),
-              ),
-              Positioned(
-                bottom: 25,
-                left: 20,
-                child: Text("VALID THRU: 12/28", 
-                  style: TextStyle(color: Colors.white54, fontSize: 13)),
-              ),
-              Positioned(
-                bottom: 25,
-                right: 20,
-                child: Icon(Icons.credit_card, color: Colors.white, size: 45),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+void main() {
+  runApp(RedotPayClone());
 }
-import 'package:flutter/material.dart';
-
-void main() => runApp(MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        body: Center(
-          child: Container(
-            height: 220,
-            width: double.infinity,
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(
-                colors: [Color(0xFF1a1a1a), Color(0xFF000000)],
-              ),
-              border: Border.all(color: Colors.white10),
-            ),
-            child: Stack(
-              children: [
-                Positioned(top: 20, left: 20, child: Text("RedotPay", style: TextStyle(color: Color(0xFFFF3B30), fontWeight: FontWeight.bold, fontSize: 18))),
-                Positioned(bottom: 60, left: 20, child: Text("**** **** **** 8890", style: TextStyle(color: Colors.white, fontSize: 22, letterSpacing: 2))),
-                Positioned(bottom: 20, left: 20, child: Text("VALID THRU: 12/28", style: TextStyle(color: Colors.white54, fontSize: 12))),
-                Positioned(bottom: 20, right: 20, child: Icon(Icons.credit_card, color: Colors.white, size: 40)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ));
-import 'package:flutter/material.dart';
-
-void main() => runApp(MaterialApp(home: RedotPayClone(), debugShowCheckedModeBanner: false));
 
 class RedotPayClone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xFF0A0A0A), // الخلفية السوداء العميقة لـ RedotPay
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          SizedBox(height: 50),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Text("RedotPay", style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold)),
-          ),
-          Container(
-            height: 200,
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Color(0xFF1a1a1a), Colors.black]),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.redAccent.withOpacity(0.5)),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Icon(Icons.person_outline, color: Colors.white),
+        actions: [
+          Icon(Icons.notifications_none, color: Colors.white),
+          SizedBox(width: 15),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Total Balance", style: TextStyle(color: Colors.grey, fontSize: 16)),
+            SizedBox(height: 10),
+            Text("\$1,250.00", style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+            SizedBox(height: 30),
+            
+            // تصميم بطاقة RedotPay المميزة
+            Container(
+              width: double.infinity,
+              height: 200,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF232323), Color(0xFF000000)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                boxShadow: [
+                  BoxShadow(color: Colors.orange.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("RedotPay", style: TextStyle(color: Colors.orange, fontSize: 20, fontWeight: FontWeight.bold)),
+                        Icon(Icons.contactless, color: Colors.white),
+                      ],
+                    ),
+                    Text("**** **** **** 1234", style: TextStyle(color: Colors.white, fontSize: 22, letterSpacing: 2)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("MUSTAFA BSO", style: TextStyle(color: Colors.grey)),
+                        Text("12/28", style: TextStyle(color: Colors.grey)),
+                        Text("VISA", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-            child: Center(child: Text("**** **** **** 8890", style: TextStyle(color: Colors.white, fontSize: 20, letterSpacing: 2))),
-          ),
-          ListTile(
-            title: Text("Total Balance", style: TextStyle(color: Colors.white70)),
-            trailing: Text("\$530.00", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-          ),
+            
+            SizedBox(height: 30),
+            Text("Recent Activity", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+            // القائمة السفلية للعمليات
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(backgroundColor: Colors.grey[900], child: Icon(Icons.shopping_bag, color: Colors.white)),
+                    title: Text("Amazon Purchase"),
+                    subtitle: Text("12 Feb 2026"),
+                    trailing: Text("-\$45.00", style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF121212),
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Cards'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Assets'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
         ],
       ),
     );
   }
 }
-Container(
-  height: 220,
-  width: double.infinity,
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(20),
-    gradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Color(0xFF1a1a1a), Color(0xFF000000)], // الأسود الفخم
-    ),
-    border: Border.all(color: Colors.white10),
-  ),
-  child: Stack(
-    children: [
-      Positioned(
-        top: 20,
-        left: 20,
-        child: Text("RedotPay", style: TextStyle(color: Color(0xFFFF3B30), fontWeight: FontWeight.bold, fontSize: 18)), // اللون الأحمر
-      ),
-      Positioned(
-        bottom: 60,
-        left: 20,
-        child: Text("**** **** **** 8890", style: TextStyle(color: Colors.white, fontSize: 22, letterSpacing: 2)),
-      ),
-      Positioned(
-        bottom: 20,
-        left: 20,
-        child: Text("VALID THRU: 12/28", style: TextStyle(color: Colors.white54, fontSize: 12)),
-      ),
-      Positioned(
-        bottom: 20,
-        right: 20,
-        child: Icon(Icons.credit_card, color: Colors.white, size: 40),
-      ),
-    ],
-  ),
-)
-import 'package:flutter/material.dart';
-import 'package:flutter_wallet_ui_challenge/src/app.dart';
-
-void main() => runApp(App());
-
-
-
-
