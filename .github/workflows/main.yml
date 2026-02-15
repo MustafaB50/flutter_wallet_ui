@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17 # أحدث لغة جافا مستقرة
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -15,19 +15,23 @@ jobs:
       - name: Install Modern Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0' # أحدث إصدار ثابت
+          flutter-version: '3.19.0'
           channel: 'stable'
 
-      - name: Force Modernize Project
+      - name: Force Fix SDK & Code
         run: |
-          # مسح مخلفات النظام القديم v1 التي ظهرت في الصورة
+          # 1. تحديث إصدار الـ SDK في ملف الإعدادات ليقبل Dart 3
+          sed -i 's/sdk: ">=2.1.0 <3.0.0"/sdk: ">=2.12.0 <4.0.0"/g' pubspec.yaml
+          
+          # 2. مسح ملفات الأندرويد القديمة v3 تماماً
           rm -rf android/
-          rm -f pubspec.lock
-          # إعادة بناء المشروع بلغة العصر الحديث
           flutter create . --platforms android
-          # تحديث المكتبات لتتوافق مع Dart 3
-          flutter pub get
+          
+          # 3. إصلاح مسميات النصوص الرسومية (Headline/Body) تلقائياً
+          find . -name "*.dart" -type f -exec sed -i 's/headline/headlineMedium/g' {} +
+          find . -name "*.dart" -type f -exec sed -i 's/body1/bodyLarge/g' {} +
 
+      - run: flutter pub get
       - run: flutter build apk --debug --no-sound-null-safety
 
       - name: Upload APK
