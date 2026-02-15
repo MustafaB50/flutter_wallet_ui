@@ -6,20 +6,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Set up JDK 11
+      - name: Set up JDK 8 # نستخدم نسخة جافا أقدم لتناسب الإصدار
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '8'
           distribution: 'temurin'
           
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.2.3' # إصدار أقدم ليتوافق مع headline و body1
+          flutter-version: '1.22.6' # هذا الإصدار سيحل مشكلة الأخطاء المتكررة فوراً
           channel: 'stable'
           
       - run: flutter pub get
-      - run: flutter clean
-      - run: flutter build apk --debug --no-sound-null-safety
+      - run: flutter build apk --debug
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
